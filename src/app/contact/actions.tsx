@@ -6,7 +6,7 @@ import { Resend } from 'resend'
 import { ensureContactSubmissionsTable, getDb } from '@/lib/db'
 import { contactSubmissions } from '@/lib/db/schema'
 
-import { ContactEmail } from './ContactEmail'
+import { ContactConfirmationEmail, ContactEmail } from './ContactEmail'
 import { contactFormSchema } from './schema'
 import type { ContactFormState } from './state'
 
@@ -72,32 +72,55 @@ export async function submitContactForm(
       message: validation.data.message,
     })
 
-    const emailHtml = await render(<ContactEmail {...validation.data} />)
-    const emailText = [
+    const notificationHtml = await render(<ContactEmail {...validation.data} />)
+    const notificationText = [
       `Name: ${validation.data.name}`,
       `Email: ${validation.data.email}`,
       '',
       validation.data.message,
     ].join('\n')
+    const confirmationHtml = await render(<ContactConfirmationEmail name={validation.data.name} />)
+    const confirmationText = [
+      `Hi ${validation.data.name},`,
+      '',
+      'Thanks for your message. I have received it and will get back to you soon.',
+      '',
+      'Warmly,',
+      'Lauren',
+    ].join('\n')
 
     const resend = new Resend(resendApiKey)
 
-    const { error } = await resend.emails.send({
-      from,
-      to,
-      replyTo: validation.data.email,
-      subject: `Website enquiry from ${validation.data.name}`,
-      html: emailHtml,
-      text: emailText,
-    })
+    const [notificationEmail, confirmationEmail] = await Promise.all([
+      resend.emails.send({
+        from,
+        to,
+        replyTo: validation.data.email,
+        subject: `Website enquiry from ${validation.data.name}`,
+        html: notificationHtml,
+        text: notificationText,
+      }),
+      resend.emails.send({
+        from,
+        to: validation.data.email,
+        replyTo: to,
+        subject: 'Thanks for getting in touch',
+        html: confirmationHtml,
+        text: confirmationText,
+      }),
+    ])
 
-    if (error) {
-      throw new Error(error.message)
+    if (notificationEmail.error || confirmationEmail.error) {
+      throw new Error(
+        notificationEmail.error?.message ??
+          confirmationEmail.error?.message ??
+          'Email delivery failed',
+      )
     }
 
     return {
       status: 'success',
-      message: 'Thanks, your message has been sent.',
+      message: 'Thanks, your message has been sent. Please check your email for confirmation.',
     }
   } catch (error) {
     console.error('Contact form submission failed', error)

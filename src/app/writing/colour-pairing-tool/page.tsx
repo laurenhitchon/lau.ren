@@ -14,11 +14,14 @@ export default function ColourPairingToolPost() {
 
       <article className='article' aria-labelledby='post-title'>
         <header className='article-header'>
-          <p className='availability'>Accessibility</p>
-          <h1 id='post-title'>Designing colour decisions into the workflow</h1>
+          <p className='availability'>Build notes</p>
+          <time className='post-date' dateTime='2026-02'>
+            February 2026
+          </time>
+          <h1 id='post-title'>A colour pairing tool that does the hard part first</h1>
           <p className='lede'>
-            Colour contrast is easy to check at the end of a project. The better move is to make
-            good pairings available before the wrong combinations become part of the design.
+            Building the new NSW colour pairing tool was a useful reminder that developer tools get
+            better when they are opinionated about the system they belong to.
           </p>
         </header>
 
@@ -28,86 +31,116 @@ export default function ColourPairingToolPost() {
             <a href='https://app.digital.nsw.gov.au/colour-tools/colour-pairing-tool'>
               NSW colour pairing tool
             </a>{' '}
-            is useful because it turns an accessibility requirement into a decision-making surface.
-            Instead of asking teams to remember contrast ratios, inspect every component manually,
-            or retrofit colours late in delivery, it lets them choose a primary colour, choose an
-            accent colour, and immediately see which text and interface pairings can carry content.
+            is live in the NSWDS app. It started with a practical problem: teams do not need another
+            place to paste two hex values and get a contrast ratio back. They need a system-aware
+            tool that can answer the next question: given this palette, this background and this
+            interface context, which foregrounds are worth using?
           </p>
 
           <p>
-            That timing matters. Colour is usually chosen early, when a product is still
-            establishing hierarchy, tone and brand expression. If accessibility is checked only
-            after screens have settled, the conversation becomes defensive: which colours do we have
-            to change, and how much will it disrupt the approved design? A pairing tool shifts that
-            conversation forward. It lets teams ask: which combinations are safe to use in the first
-            place?
+            The main lesson was not about contrast maths. That part is well-defined. The harder work
+            was deciding what the tool should refuse to do, what it should recommend by default, and
+            how much detail to expose before the interface becomes a spreadsheet with nicer spacing.
           </p>
 
-          <h2>It starts with the system</h2>
+          <h2>Start with the system</h2>
 
           <p>
-            The tool is strongest because it does not begin with arbitrary colour input. It begins
-            with the NSW colour system. You can work with the brand palette or the Aboriginal
-            palette, select primary and accent families, and grey is added automatically as a third
-            practical family. That matters because real interfaces rarely use one colour in
-            isolation. They use brand colour, supporting colour and neutral surfaces together.
+            Free-form colour pickers are tempting because they look powerful. In a design system,
+            that freedom can become noise. This tool starts from the NSW brand and Aboriginal
+            palettes, asks for a primary and accent family, and always includes grey because neutral
+            colour carries a lot of real interface work.
           </p>
 
           <p>
-            The available shades are deliberately constrained. The interface focuses on useful tones
-            rather than every possible token, then shows the same colour in HEX, RGB, HSL and OKLCH.
-            That combination is very design-system minded: it keeps the choice narrow enough to be
-            repeatable, but gives designers and developers the implementation detail they need when
-            a pairing moves into a component.
-          </p>
-
-          <h2>It recommends, not just reports</h2>
-
-          <p>
-            A basic contrast checker tells you whether two colours pass. This tool does more useful
-            work than that. For each selected background it builds candidate foregrounds from the
-            primary, accent and grey families, checks the contrast ratio, and surfaces options that
-            meet the relevant WCAG thresholds: AA large text at 3:1, AA normal text at 4.5:1, and
-            AAA normal text at 7:1.
+            The implementation follows that decision. <code>buildPaletteFamilies</code> takes the
+            palette data and turns it into UI-ready families, but it only keeps the approved tones
+            the tool is designed around: 200, 400, 600 and 800. If a family does not have that full
+            set, it does not become an option.
           </p>
 
           <p>
-            The recommendation logic also behaves like a design tool rather than a spreadsheet. It
-            prefers foregrounds that move in the right tonal direction, keeps useful distance
-            between foreground and background, favours system colours before falling back to white,
-            and still ranks by contrast when the choices are otherwise close. The result is a set of
-            pairings that feel practical, not merely technically valid.
+            That is product design hiding inside a JavaScript function. The data shape prevents the
+            interface from drifting into colours the system is not trying to support. It also makes
+            the recommendation logic smaller, clearer and easier to test.
           </p>
 
-          <h2>It makes the state shareable</h2>
+          <h2>Rank, do not just validate</h2>
 
           <p>
-            The smaller interaction details are important. A selected pairing can be represented in
-            the URL, so a designer, developer or content person can send someone else the exact
-            palette, background and foreground being discussed. The preview updates with a clear
-            status, compliance pills show which thresholds pass or fail, and the experience includes
-            screen-reader announcements for the selected combination.
+            Under the interface, the tool uses <code>culori.wcagContrast</code> through a small{' '}
+            <code>getContrastRatio</code> helper. From there, <code>buildForegroundCandidates</code>{' '}
+            gathers foregrounds from the selected primary family, selected accent family, grey and
+            white, then dedupes repeated hex values so the same colour does not show up twice under
+            different names.
           </p>
 
-          <h2>Good constraints protect good design</h2>
-
           <p>
-            There is a common fear that accessibility will make an interface visually blunt. In
-            practice, the opposite is usually true. Clear constraints force better decisions about
-            scale, contrast, emphasis and restraint. If a colour cannot carry body text, it may
-            still work as a border, surface, icon accent or decorative cue. The important thing is
-            knowing that before the design relies on it for meaning.
+            A boolean pass/fail result would have been easy. It also would have stopped too early.
+            <code>scoreForegroundCandidates</code> adds the contrast ratio to every option, then{' '}
+            <code>getRecommendedCandidate</code> looks for AAA normal text first and gives a small
+            preference to colours from the primary family. The default recommendation should be
+            strong enough for body copy and still feel like it belongs to the selected colour
+            system.
           </p>
 
-          <h2>The best standard is one people can use</h2>
+          <p>
+            The tool still needs to surface useful-but-limited pairings.{' '}
+            <code>getForegroundOptionsMeetingAaLarge</code> keeps anything that reaches 3:1 and
+            sorts those options by contrast, so a colour can be considered for large text, icons or
+            UI treatment without pretending it is safe for normal body copy.
+          </p>
+
+          <h2>Make the preview honest</h2>
 
           <p>
-            Colour contrast is not the whole of accessibility, but it is one of the easiest barriers
-            to prevent. The value of the colour pairing tool is not just that it checks
-            combinations. It makes the check visible, quick and close to the moment of choice. That
-            is how design systems should work: not as a rulebook people remember under pressure, but
-            as a set of useful defaults and tools that make the right decision easier than the risky
-            one.
+            The preview does not render every example all the time.{' '}
+            <code>supportsLargeTextPreview</code> controls whether the large heading appears, and{' '}
+            <code>supportsNormalTextPreview</code> controls whether body text and button examples
+            appear. If a pairing only passes for large text, the preview narrows to that use case.
+            If it fails, the UI says so instead of dressing it up.
+          </p>
+
+          <p>
+            The status labels come from small functions too: <code>getPreviewHeroRatingLabel</code>,{' '}
+            <code>getPreviewHeroStatusLabel</code>, <code>getContrastTone</code> and{' '}
+            <code>getCompliancePills</code>. They map the raw ratio to AA large, AA normal, AAA
+            large and AAA normal outcomes. Keeping that logic close to the UI matters because the
+            labels, colours and preview behaviour all need to move together.
+          </p>
+
+          <h2>Make the decision portable</h2>
+
+          <p>
+            A pairing tool is not finished if the result cannot be shared. The selected palette,
+            primary family, accent family, background and foreground all need to travel with the
+            link. <code>getInitialPairingState</code> reads that state on load,{' '}
+            <code>parseSharedPairParam</code> handles compact shared pair values, and{' '}
+            <code>updateUrlParams</code> keeps the browser URL in sync as the selection changes.
+          </p>
+
+          <p>
+            The copy action follows the same idea. It gives the foreground token and value,
+            background token and value, contrast ratio, and compliance summary. HEX, RGB, HSL and
+            OKLCH are all available because designers and developers do not always need the same
+            representation at the same point in the work.
+          </p>
+
+          <h2>The useful constraint</h2>
+
+          <p>
+            The tool is deliberately bounded. It does not let you invent a colour, tune every shade,
+            or optimise a one-off combination outside the NSW palettes. For this product, that is
+            the right tradeoff. The job is not infinite exploration. The job is to make the approved
+            colour system easier to use without making teams manually test every pairing from
+            scratch.
+          </p>
+
+          <p>
+            The developer takeaway is simple: when building design-system tooling, start with the
+            tokens, encode the product opinion in small functions, rank useful choices instead of
+            only validating input, and make the selected state easy to share. The best tools do not
+            just expose data. They reduce the number of shaky decisions a team has to make.
           </p>
         </div>
 

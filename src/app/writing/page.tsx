@@ -3,15 +3,6 @@ import Link from 'next/link'
 import { SiteFooter } from '../components/SiteFooter'
 import { SiteHeader } from '../components/SiteHeader'
 
-const topics = [
-  'Design systems',
-  'Accessibility',
-  'Front-end development',
-  'Digital product delivery',
-  'HTML email',
-  'Public sector technology',
-]
-
 export default function WritingPage() {
   return (
     <main className='site-shell'>
@@ -25,21 +16,9 @@ export default function WritingPage() {
         <p className='availability'>Writing</p>
         <h1 id='writing-title'>Notes, essays and field observations.</h1>
         <p className='lede'>
-          A place for writing about the overlap between design, engineering, accessibility and
-          sustainable digital product work.
+          Writing about design systems, accessibility, front-end practice and the small decisions
+          that make digital products easier to build and maintain.
         </p>
-      </section>
-
-      <section className='section-grid' aria-labelledby='topics-title'>
-        <div className='section-heading'>
-          <p>Topics</p>
-          <h2 id='topics-title'>Likely themes</h2>
-        </div>
-        <ul className='capability-list' aria-label='Writing topics'>
-          {topics.map((topic) => (
-            <li key={topic}>{topic}</li>
-          ))}
-        </ul>
       </section>
 
       <section className='section-grid' aria-labelledby='posts-title'>
@@ -49,23 +28,49 @@ export default function WritingPage() {
         </div>
         <div className='link-list'>
           <article className='work-item'>
-            <h3>
-              <Link href='/writing/colour-pairing-tool'>
-                Designing colour decisions into the workflow
-              </Link>
-            </h3>
-            <p>
-              A note on the NSW colour pairing tool and why accessibility checks work best when they
-              are part of design practice, not a final audit.
-            </p>
-          </article>
-          <article className='work-item'>
-            <h3>
-              <Link href='/writing/nsw-email-toolkit'>What the NSW Email Toolkit gets right</Link>
-            </h3>
+            <div>
+              <time className='post-date' dateTime='2026-04'>
+                April 2026
+              </time>
+              <h3>
+                <Link href='/writing/nsw-email-toolkit'>What the NSW Email Toolkit gets right</Link>
+              </h3>
+            </div>
             <p>
               A short reflection on making government email more consistent, accessible and
               maintainable across teams.
+            </p>
+          </article>
+          <article className='work-item'>
+            <div>
+              <time className='post-date' dateTime='2026-02'>
+                February 2026
+              </time>
+              <h3>
+                <Link href='/writing/colour-pairing-tool'>
+                  A colour pairing tool that does the hard part first
+                </Link>
+              </h3>
+            </div>
+            <p>
+              The NSWDS tool does more than calculate contrast. It ranks usable foregrounds, guards
+              the preview and keeps the selected state shareable.
+            </p>
+          </article>
+          <article className='work-item'>
+            <div>
+              <time className='post-date' dateTime='2025-12'>
+                December 2025
+              </time>
+              <h3>
+                <Link href='/writing/design-system-colour-tokens'>
+                  Making colour tokens do the boring work
+                </Link>
+              </h3>
+            </div>
+            <p>
+              How the NSWDS colour utilities keep palette data, generated scales, theme slices and
+              exports from bleeding into component code.
             </p>
           </article>
         </div>

@@ -41,6 +41,34 @@ export function ContactEmail({ name, email, message }: ContactEmailProps) {
   )
 }
 
+type ContactConfirmationEmailProps = {
+  name: string
+}
+
+export function ContactConfirmationEmail({ name }: ContactConfirmationEmailProps) {
+  return (
+    <Html>
+      <Head />
+      <Preview>Thanks for getting in touch</Preview>
+      <Body style={body}>
+        <Container style={container}>
+          <Heading style={heading}>Thanks for getting in touch</Heading>
+          <Section style={section}>
+            <Text style={value}>Hi {name},</Text>
+            <Text style={value}>
+              Thanks for your message. I have received it and will get back to you soon.
+            </Text>
+          </Section>
+          <Section style={section}>
+            <Text style={value}>Warmly,</Text>
+            <Text style={value}>Lauren</Text>
+          </Section>
+        </Container>
+      </Body>
+    </Html>
+  )
+}
+
 const body = {
   backgroundColor: '#f8f8f5',
   color: '#171716',

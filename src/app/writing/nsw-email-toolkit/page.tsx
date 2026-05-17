@@ -15,6 +15,9 @@ export default function NswEmailToolkitPost() {
       <article className='article' aria-labelledby='post-title'>
         <header className='article-header'>
           <p className='availability'>HTML email</p>
+          <time className='post-date' dateTime='2026-04'>
+            April 2026
+          </time>
           <h1 id='post-title'>What the NSW Email Toolkit gets right</h1>
           <p className='lede'>
             Government email is often treated as a small delivery detail. It is not. For many
