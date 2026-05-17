@@ -1,65 +1,62 @@
-import Image from "next/image";
+import Link from 'next/link'
+import { SiteFooter } from './components/SiteFooter'
+import { SiteHeader } from './components/SiteHeader'
+
+const homeLinks = [
+  {
+    href: '/resume',
+    title: 'Resume',
+    description: 'Career history, selected work, capabilities, education and credentials.',
+  },
+  {
+    href: '/writing',
+    title: 'Writing',
+    description:
+      'Notes on design systems, accessibility, front-end development and digital product work.',
+  },
+  {
+    href: '/contact',
+    title: 'Contact',
+    description: 'Get in touch about product, engineering, design systems or web delivery work.',
+  },
+]
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <main className='site-shell'>
+      <SiteHeader />
+
+      <div className='vertical-name' aria-hidden='true'>
+        Lauren Hitchon
+      </div>
+
+      <section className='home-hero' aria-labelledby='home-title'>
+        <p className='availability'>Lauren Hitchon</p>
+        <h1 id='home-title'>Technology leadership, full stack development and design systems.</h1>
+        <p className='lede'>
+          I work across product strategy, accessible interface design and hands-on engineering for
+          public sector digital services.
+        </p>
+      </section>
+
+      <section className='section-grid home-links' aria-label='Site sections'>
+        <div className='section-heading'>
+          <p>Start here</p>
+          <h2>Explore</h2>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+        <div className='link-list'>
+          {homeLinks.map((item) => (
+            <article className='work-item' key={item.href}>
+              <h3>
+                <Link href={item.href}>{item.title}</Link>
+              </h3>
+              <p>{item.description}</p>
+            </article>
+          ))}
         </div>
-      </main>
-    </div>
-  );
+      </section>
+
+      <SiteFooter />
+    </main>
+  )
 }
