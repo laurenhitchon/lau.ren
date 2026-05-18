@@ -1,5 +1,10 @@
+import type { Metadata } from 'next'
+
 import { SiteFooter } from '../components/SiteFooter'
 import { SiteHeader } from '../components/SiteHeader'
+import { createPageMetadata, pages } from '../seo'
+
+export const metadata: Metadata = createPageMetadata(pages.resume)
 
 const selectedWork = [
   {

@@ -1,7 +1,11 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 
 import { SiteFooter } from '../components/SiteFooter'
 import { SiteHeader } from '../components/SiteHeader'
+import { createPageMetadata, pages } from '../seo'
+
+export const metadata: Metadata = createPageMetadata(pages.writing)
 
 export default function WritingPage() {
   return (
