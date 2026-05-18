@@ -417,6 +417,14 @@ a:hover {
   gap: 0.45rem;
 }
 
+.spam-protection-field {
+  position: absolute;
+  left: -100vw;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
 .contact-form label {
   color: var(--muted);
   font-size: 0.78rem;
@@ -443,6 +451,15 @@ a:hover {
 .contact-form textarea {
   min-height: 10.5rem;
   resize: vertical;
+}
+
+.turnstile-field {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.turnstile-field:has(> div:empty):not(:has(.field-error)) {
+  display: none;
 }
 
 .contact-form input:focus,

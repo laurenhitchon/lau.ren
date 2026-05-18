@@ -1,6 +1,11 @@
+import type { Metadata } from 'next'
+
 import { SiteFooter } from '../components/SiteFooter'
 import { SiteHeader } from '../components/SiteHeader'
+import { createPageMetadata, pages } from '../seo'
 import { ContactForm } from './ContactForm'
+
+export const metadata: Metadata = createPageMetadata(pages.contact)
 
 const contactLinks = [
   {

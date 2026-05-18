@@ -1,6 +1,7 @@
 'use server'
 
 import { render } from '@react-email/render'
+import { headers } from 'next/headers'
 import { Resend } from 'resend'
 
 import { ensureContactSubmissionsTable, getDb } from '@/lib/db'
@@ -9,6 +10,84 @@ import { contactSubmissions } from '@/lib/db/schema'
 import { ContactConfirmationEmail, ContactEmail } from './ContactEmail'
 import { contactFormSchema } from './schema'
 import type { ContactFormState } from './state'
+
+type TurnstileVerificationResponse = {
+  success: boolean
+  'error-codes'?: string[]
+}
+
+const TURNSTILE_VERIFY_URL = 'https://challenges.cloudflare.com/turnstile/v0/siteverify'
+const TURNSTILE_TOKEN_FIELD = 'cf-turnstile-response'
+
+function getFirstHeaderIp(value: string | null) {
+  return value?.split(',')[0]?.trim()
+}
+
+async function getRequestIp() {
+  const requestHeaders = await headers()
+
+  return (
+    getFirstHeaderIp(requestHeaders.get('cf-connecting-ip')) ??
+    getFirstHeaderIp(requestHeaders.get('x-forwarded-for')) ??
+    getFirstHeaderIp(requestHeaders.get('x-real-ip'))
+  )
+}
+
+async function verifyTurnstileToken(token: FormDataEntryValue | null) {
+  const secret = process.env.CONTACT_TURNSTILE_SECRET_KEY
+
+  if (!secret) {
+    return {
+      configured: false,
+      verified: false,
+    }
+  }
+
+  if (typeof token !== 'string' || token.length === 0 || token.length > 2048) {
+    return {
+      configured: true,
+      verified: false,
+    }
+  }
+
+  const body = new FormData()
+  body.set('secret', secret)
+  body.set('response', token)
+
+  const remoteIp = await getRequestIp()
+
+  if (remoteIp) {
+    body.set('remoteip', remoteIp)
+  }
+
+  try {
+    const response = await fetch(TURNSTILE_VERIFY_URL, {
+      method: 'POST',
+      body,
+    })
+
+    if (!response.ok) {
+      return {
+        configured: true,
+        verified: false,
+      }
+    }
+
+    const result = (await response.json()) as TurnstileVerificationResponse
+
+    return {
+      configured: true,
+      verified: result.success,
+    }
+  } catch (error) {
+    console.error('Turnstile verification failed', error)
+
+    return {
+      configured: true,
+      verified: false,
+    }
+  }
+}
 
 function validateContactForm(formData: FormData) {
   const parsed = contactFormSchema.safeParse({
@@ -38,6 +117,13 @@ export async function submitContactForm(
   _previousState: ContactFormState,
   formData: FormData,
 ): Promise<ContactFormState> {
+  if (formData.get('company')) {
+    return {
+      status: 'success',
+      message: 'Thanks, your message has been sent. Please check your email for confirmation.',
+    }
+  }
+
   const validation = validateContactForm(formData)
 
   if (!validation.valid || !validation.data) {
@@ -45,6 +131,22 @@ export async function submitContactForm(
       status: 'error',
       message: 'Please check the highlighted fields.',
       fieldErrors: validation.fieldErrors,
+    }
+  }
+
+  const turnstile = await verifyTurnstileToken(formData.get(TURNSTILE_TOKEN_FIELD))
+
+  if (!turnstile.configured) {
+    return {
+      status: 'error',
+      message: 'The contact form is not configured yet. Missing CONTACT_TURNSTILE_SECRET_KEY.',
+    }
+  }
+
+  if (!turnstile.verified) {
+    return {
+      status: 'error',
+      message: 'Please refresh the page and try the verification again.',
     }
   }
 
