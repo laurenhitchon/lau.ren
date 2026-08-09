@@ -33,6 +33,22 @@ export default function WritingPage() {
         <div className='link-list'>
           <article className='work-item'>
             <div>
+              <time className='post-date' dateTime='2026-08'>
+                August 2026
+              </time>
+              <h3>
+                <Link href='/writing/maintenance-should-be-a-system'>
+                  Maintenance should be a system
+                </Link>
+              </h3>
+            </div>
+            <p>
+              How shared configuration, reusable CI and Renovate keep a fleet of Next.js
+              applications consistent without hiding risk.
+            </p>
+          </article>
+          <article className='work-item'>
+            <div>
               <time className='post-date' dateTime='2026-04'>
                 April 2026
               </time>
