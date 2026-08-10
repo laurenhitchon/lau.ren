@@ -1,3 +1,9 @@
+## [1.0.2](https://github.com/laurenhitchon/lau.ren/compare/v1.0.1...v1.0.2) (2026-08-10)
+
+### Bug Fixes
+
+* **deps:** update all non-major dependencies ([#9](https://github.com/laurenhitchon/lau.ren/issues/9)) ([00d0674](https://github.com/laurenhitchon/lau.ren/commit/00d06740b8ed73927a808a37636167338fbcd4b4))
+
 ## [1.0.1](https://github.com/laurenhitchon/lau.ren/compare/v1.0.0...v1.0.1) (2026-08-10)
 
 ### Bug Fixes
