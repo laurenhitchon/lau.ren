@@ -1,7 +1,7 @@
 'use server'
 
-import { render } from '@react-email/render'
 import { headers } from 'next/headers'
+import { render } from 'react-email'
 import { Resend } from 'resend'
 
 import { ensureContactSubmissionsTable, getDb } from '@/lib/db'
