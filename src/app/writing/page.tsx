@@ -33,6 +33,20 @@ export default function WritingPage() {
         <div className='link-list'>
           <article className='work-item'>
             <div>
+              <time className='post-date' dateTime='2026-09'>
+                September 2026
+              </time>
+              <h3>
+                <Link href='/writing/say-the-nice-thing'>Say the nice thing</Link>
+              </h3>
+            </div>
+            <p>
+              Software development has plenty of feedback and surprisingly little praise. On
+              noticing good work and actually telling the person who did it.
+            </p>
+          </article>
+          <article className='work-item'>
+            <div>
               <time className='post-date' dateTime='2026-08'>
                 August 2026
               </time>
