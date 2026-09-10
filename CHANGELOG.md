@@ -1,3 +1,9 @@
+## [1.1.0](https://github.com/laurenhitchon/lau.ren/compare/v1.0.3...v1.1.0) (2026-09-10)
+
+### Features
+
+* **writing:** add say the nice thing post ([#25](https://github.com/laurenhitchon/lau.ren/issues/25)) ([7eea4b2](https://github.com/laurenhitchon/lau.ren/commit/7eea4b2e57eee790331c30df1df890196e77cb4d))
+
 ## [1.0.3](https://github.com/laurenhitchon/lau.ren/compare/v1.0.2...v1.0.3) (2026-09-01)
 
 ### Bug Fixes
