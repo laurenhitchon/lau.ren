@@ -1,3 +1,9 @@
+## [1.1.1](https://github.com/laurenhitchon/lau.ren/compare/v1.1.0...v1.1.1) (2026-09-25)
+
+### Bug Fixes
+
+* **deps:** update next to 16.3.6 (CVE-2026-94545) ([#30](https://github.com/laurenhitchon/lau.ren/issues/30)) ([e1a1baa](https://github.com/laurenhitchon/lau.ren/commit/e1a1baa7d87564b5b866ddae5acdada220a57b49))
+
 ## [1.1.0](https://github.com/laurenhitchon/lau.ren/compare/v1.0.3...v1.1.0) (2026-09-10)
 
 ### Features
