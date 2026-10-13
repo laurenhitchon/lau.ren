@@ -1,3 +1,9 @@
+## [1.1.4](https://github.com/laurenhitchon/lau.ren/compare/v1.1.3...v1.1.4) (2026-10-13)
+
+### Bug Fixes
+
+* **deps:** update dependency dotenv to v18 ([#35](https://github.com/laurenhitchon/lau.ren/issues/35)) ([fa72ab9](https://github.com/laurenhitchon/lau.ren/commit/fa72ab9f8e207826d14decb01ab14dd17ff3a04f))
+
 ## [1.1.3](https://github.com/laurenhitchon/lau.ren/compare/v1.1.2...v1.1.3) (2026-10-13)
 
 ### Bug Fixes
