@@ -1,3 +1,9 @@
+## [1.1.3](https://github.com/laurenhitchon/lau.ren/compare/v1.1.2...v1.1.3) (2026-10-13)
+
+### Bug Fixes
+
+* **deps:** update dependency next to v16.3.8 [security] ([#37](https://github.com/laurenhitchon/lau.ren/issues/37)) ([69a91f5](https://github.com/laurenhitchon/lau.ren/commit/69a91f57503179a31bf60b2bfbba0b0eb7e2ef39))
+
 ## [1.1.2](https://github.com/laurenhitchon/lau.ren/compare/v1.1.1...v1.1.2) (2026-09-25)
 
 ### Bug Fixes
