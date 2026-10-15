@@ -1,3 +1,9 @@
+## [1.2.0](https://github.com/laurenhitchon/lau.ren/compare/v1.1.4...v1.2.0) (2026-10-15)
+
+### Features
+
+* **writing:** add one pixel of page colour post ([#39](https://github.com/laurenhitchon/lau.ren/issues/39)) ([9aa193c](https://github.com/laurenhitchon/lau.ren/commit/9aa193c2a9bbe3a2ff15c5fd66b5dc7fd0c1eff6))
+
 ## [1.1.4](https://github.com/laurenhitchon/lau.ren/compare/v1.1.3...v1.1.4) (2026-10-13)
 
 ### Bug Fixes
