@@ -33,6 +33,20 @@ export default function WritingPage() {
         <div className='link-list'>
           <article className='work-item'>
             <div>
+              <time className='post-date' dateTime='2026-10'>
+                October 2026
+              </time>
+              <h3>
+                <Link href='/writing/one-pixel-of-page-colour'>One pixel of page colour</Link>
+              </h3>
+            </div>
+            <p>
+              Debugging a 1px line under the footer logo in Windows Outlook, and what it taught
+              about how Word measures a line box.
+            </p>
+          </article>
+          <article className='work-item'>
+            <div>
               <time className='post-date' dateTime='2026-09'>
                 September 2026
               </time>
