@@ -41,3 +41,11 @@ yarn-error.log*
 next-env.d.ts
 /.playwright-cli
 .opencommitignore
+
+# ai
+/.claude
+.claude
+.codex
+/.codex
+AGENTS.md
+CLAUDE.md
