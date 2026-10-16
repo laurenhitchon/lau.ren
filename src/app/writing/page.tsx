@@ -37,6 +37,20 @@ export default function WritingPage() {
                 October 2026
               </time>
               <h3>
+                <Link href='/writing/contrast-is-a-measurement'>Contrast is a measurement</Link>
+              </h3>
+            </div>
+            <p>
+              Building the NSW Colour Contrast Checker: making WCAG numbers true, showing APCA
+              beside them, and where the two models disagree across the NSW palette.
+            </p>
+          </article>
+          <article className='work-item'>
+            <div>
+              <time className='post-date' dateTime='2026-10'>
+                October 2026
+              </time>
+              <h3>
                 <Link href='/writing/one-pixel-of-page-colour'>One pixel of page colour</Link>
               </h3>
             </div>
