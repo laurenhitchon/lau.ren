@@ -1,3 +1,9 @@
+## [1.3.0](https://github.com/laurenhitchon/lau.ren/compare/v1.2.0...v1.3.0) (2026-10-16)
+
+### Features
+
+* **writing:** add contrast is a measurement post ([#40](https://github.com/laurenhitchon/lau.ren/issues/40)) ([e53a372](https://github.com/laurenhitchon/lau.ren/commit/e53a372d72569a56893dc2c147bbafc26dced91d))
+
 ## [1.2.0](https://github.com/laurenhitchon/lau.ren/compare/v1.1.4...v1.2.0) (2026-10-15)
 
 ### Features
