@@ -2,17 +2,17 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
-First, run the development server:
+Switch to the Node.js version in `.nvmrc`, install dependencies and start the
+development server:
 
 ```bash
+nvm use
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
+
+npm refuses to install on any other Node.js major (`engine-strict=true`). See
+[TOOLING.md](TOOLING.md#local-development).
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
