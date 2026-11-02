@@ -1,3 +1,9 @@
+## [1.3.3](https://github.com/laurenhitchon/lau.ren/compare/v1.3.2...v1.3.3) (2026-11-02)
+
+### Bug Fixes
+
+* **deps:** update dependency @hookform/resolvers to v6 ([#51](https://github.com/laurenhitchon/lau.ren/issues/51)) ([db36f49](https://github.com/laurenhitchon/lau.ren/commit/db36f4989b493d9d8235da7f0ca3e4273b8dffe7))
+
 ## [1.3.2](https://github.com/laurenhitchon/lau.ren/compare/v1.3.1...v1.3.2) (2026-11-02)
 
 ### Bug Fixes
