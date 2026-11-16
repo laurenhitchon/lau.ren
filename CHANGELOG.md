@@ -1,3 +1,9 @@
+## [1.3.4](https://github.com/laurenhitchon/lau.ren/compare/v1.3.3...v1.3.4) (2026-11-16)
+
+### Bug Fixes
+
+* **deps:** update next.js to v16.4.6 ([#53](https://github.com/laurenhitchon/lau.ren/issues/53)) ([81698f5](https://github.com/laurenhitchon/lau.ren/commit/81698f53435660ab638e64cc3ec31fffe44214c7))
+
 ## [1.3.3](https://github.com/laurenhitchon/lau.ren/compare/v1.3.2...v1.3.3) (2026-11-02)
 
 ### Bug Fixes
